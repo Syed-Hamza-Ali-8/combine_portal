@@ -1,103 +1,95 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+// AccountTypeCard Component
+interface AccountTypeCardProps {
+  title: string;
+  description: string;
 }
+
+const AccountTypeCard: React.FC<AccountTypeCardProps> = ({
+  title,
+  description,
+}) => {
+  return (
+    <article className="flex flex-col p-6 rounded-lg border border-solid border-gray-200 transition-shadow ease-in-out duration-300 hover:shadow-md cursor-pointer">
+      <h3 className="mb-2 text-xl font-semibold text-gray-900">{title}</h3>
+      <p className="text-sm text-gray-500">{description}</p>
+    </article>
+  );
+};
+
+// AccountTypeSelection Component
+interface AccountType {
+  id: string;
+  title: string;
+  description: string;
+}
+
+const AccountTypeSelection: React.FC = () => {
+  const accountTypes: AccountType[] = [
+    {
+      id: "trustee",
+      title: "Trustee",
+      description: "Manage requests from landlords & find new jobs.",
+    },
+    {
+      id: "admin",
+      title: "Admin",
+      description: "Accept rent online & manage rental",
+    },
+    {
+      id: "volunteer",
+      title: "Volunteer",
+      description: "Find a place & pay rent online",
+    },
+  ];
+
+  return (
+    <main className="p-6 bg-white min-h-screen">
+      <section className="mx-auto max-w-[1200px]">
+        <div className="flex flex-col items-center text-center">
+          <figure className="mb-8">
+            <Image
+              src="https://cdn.builder.io/api/v1/image/assets%2F592f822779b54258b4cdf2eed5c74769%2Fafe7dc892de447499890b130452f7c43"
+              alt="Account search illustration"
+              className="w-[200px] h-auto ml-0"
+              width={200}
+              height={200}
+            />
+          </figure>
+
+          <h1 className="mb-4 text-3xl font-semibold text-gray-900">
+            Account Type
+          </h1>
+
+          <p className="mb-12 text-base text-gray-500 max-w-[600px]">
+            Click your role to continue to your dashboard.
+          </p>
+
+          <div className="flex gap-5 max-md:flex-col w-full">
+            {accountTypes.map((accountType, index) => (
+              <Link
+                href={`/${accountType.id}`}
+                key={accountType.id}
+                className={`w-[33%] max-md:w-full ${
+                  index > 0 ? "max-md:mt-5" : ""
+                }`}
+              >
+                <AccountTypeCard
+                  title={accountType.title}
+                  description={accountType.description}
+                />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+export default AccountTypeSelection;
