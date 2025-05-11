@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     },
   });
 
-  const resetLink = `http://localhost:3000/reset-password?email=${email}`;
+  const resetLink = `https://portalcombinefoundation.vercel.app/reset-password?email=${email}`;
 
   try {
     await transporter.sendMail({
