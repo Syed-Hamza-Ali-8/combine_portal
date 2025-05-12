@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       "images.unsplash.com",
       "cdn.builder.io",
       "i.pravatar.cc",
+      "cdn-icons-png.flaticon.com",
     ],
   },
 };

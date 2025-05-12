@@ -29,7 +29,9 @@ const ProgramsPage = () => {
   return (
     <main className="min-h-screen bg-gray-50 px-6 py-12">
       <div className="max-w-5xl mx-auto text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Our Programs</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          Our Programs
+        </h1>
         <p className="text-gray-600 mb-10">
           Explore the impactful initiatives run by Combine Foundation to support
           and uplift communities.

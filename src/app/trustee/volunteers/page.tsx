@@ -4,15 +4,16 @@ import React from "react";
 
 const VolunteersPage = () => {
   const volunteers = [
-    { name: "Aarav Patel", joined: "Jan 2024", programs: 3 },
-    { name: "Priya Sharma", joined: "Feb 2024", programs: 2 },
-    { name: "Rohan Mehta", joined: "Mar 2024", programs: 5 },
-    { name: "Simran Kaur", joined: "Apr 2024", programs: 4 },
-    { name: "Karan Verma", joined: "May 2024", programs: 1 },
+    { name: "Hamza Ali", joined: "Jan 2024", programs: 3 },
+    { name: "Umar", joined: "Feb 2024", programs: 2 },
+    { name: "Jibran", joined: "Mar 2024", programs: 5 },
+    { name: "Ali", joined: "Apr 2024", programs: 4 },
+    { name: "Areesha", joined: "May 2024", programs: 1 },
+    { name: "Nirma", joined: "May 2024", programs: 1 },
   ];
 
   return (
-    <div className="p-6 text-black">
+    <div className="p-6">
       <h1 className="text-2xl font-semibold mb-4">Volunteers List</h1>
       <div className="overflow-x-auto rounded-lg shadow">
         <table className="min-w-full bg-white text-sm text-left">
@@ -33,8 +34,8 @@ const VolunteersPage = () => {
                 <td className="px-6 py-4 font-medium text-gray-900">
                   {volunteer.name}
                 </td>
-                <td className="px-6 py-4">{volunteer.joined}</td>
-                <td className="px-6 py-4">{volunteer.programs}</td>
+                <td className="px-6 py-4 text-gray-800">{volunteer.joined}</td>
+                <td className="px-6 py-4 text-gray-800">{volunteer.programs}</td>
                 <td className="px-6 py-4">
                   <span className="inline-block px-2 py-1 text-xs text-white bg-orange-500 rounded-full">
                     Active

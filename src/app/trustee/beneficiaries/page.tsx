@@ -37,8 +37,7 @@ const BeneficiariesPage = () => {
           Our Beneficiaries
         </h1>
         <p className="text-gray-600 mb-10">
-          Meet the people whose lives have been impacted by the Combine
-          Foundation.
+          Meet the people whose lives have been impacted by the Combine Foundation.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

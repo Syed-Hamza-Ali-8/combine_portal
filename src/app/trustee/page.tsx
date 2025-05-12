@@ -1,85 +1,81 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import "../styles/LoginPage.css";
 
-interface FormData {
-  email: string;
-  password: string;
-}
+const Login = () => {
+  const router = useRouter();
 
-// Trustee credentials (you can update as needed)
-const TRUSTEE_CREDENTIALS = {
-  email: "trustee@example.com",
-  password: "trusteepass123",
-};
-
-const TrusteeLoginPage: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState({
+    name: "",
+    roll: "",
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
-  const router = useRouter();
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    setError("");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { email, password } = formData;
+    const { name, email, password } = formData;
 
-    if (
-      email === TRUSTEE_CREDENTIALS.email &&
-      password === TRUSTEE_CREDENTIALS.password
-    ) {
-      router.push("/trustee/dashboard");
-    } else {
-      setError("Incorrect email or password.");
+    if (!name || !email || !password) {
+      alert("Please fill in all fields.");
+      return;
     }
+
+    localStorage.setItem("trusteeData", JSON.stringify(formData));
+
+    router.push("/trustee/dashboard");
   };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h1 className="login-title">Trustee Login</h1>
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className="form-input"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-              aria-label="Email address"
-            />
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h2 className="text-center text-lg text-gray-600">Welcome to</h2>
+        <h1 className="text-center text-2xl font-semibold text-gray-800 mb-6">
+          Trustee Login
+        </h1>
+
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Full Name"
+            className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 placeholder:text-gray-700"
+          />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+            className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 placeholder:text-gray-700"
+          />
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Password"
+            className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 placeholder:text-gray-700"
+          />
+
+          <div className="flex items-center justify-between text-sm">
+            <a href="#" className="text-orange-500 hover:underline">
+              Forgot Password?
+            </a>
           </div>
-          <div className="form-group">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className="form-input"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-              aria-label="Password"
-            />
-          </div>
-          {error && <p className="error-text">{error}</p>}
-          <button type="submit" className="login-button">
+
+          <button
+            type="submit"
+            className="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition"
+          >
             Log In
           </button>
         </form>
@@ -88,4 +84,4 @@ const TrusteeLoginPage: React.FC = () => {
   );
 };
 
-export default TrusteeLoginPage;
+export default Login;
