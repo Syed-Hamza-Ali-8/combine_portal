@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 
 const TrusteePage = () => {
-  const [admins, setAdmins] = useState([
+  const [admins] = useState([
     { id: 1, name: "John Doe", joined: "Jan 2023", role: "Administrator" },
     { id: 2, name: "Jane Smith", joined: "Feb 2023", role: "Administrator" },
   ]);
-  const [volunteers, setVolunteers] = useState([
+  const [volunteers] = useState([
     { id: 1, name: "Hamza Ali", joined: "Jan 2024", programs: 3, status: "Active" },
     { id: 2, name: "Umar", joined: "Feb 2024", programs: 2, status: "Active" },
     { id: 3, name: "Jibran", joined: "Mar 2024", programs: 5, status: "Inactive" },

@@ -2,10 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Profile = () => {
   const router = useRouter();
-  const [trusteeData, setTrusteeData] = useState<any>(null);
+  interface TrusteeData {
+    name: string;
+    email: string;
+  }
+
+  const [trusteeData, setTrusteeData] = useState<TrusteeData | null>(null);
 
   useEffect(() => {
     const data = localStorage.getItem("trusteeData");
@@ -21,10 +27,12 @@ const Profile = () => {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
         <div className="flex justify-center mb-6">
-          <img
+          <Image
             src="https://cdn-icons-png.flaticon.com/512/149/149071.png" // Default avatar
             alt="User Avatar"
             className="w-24 h-24 rounded-full border-4 border-orange-500"
+            width={96}
+            height={96}
           />
         </div>
 
