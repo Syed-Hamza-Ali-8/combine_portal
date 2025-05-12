@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Chart } from "react-chartjs-2";
+import { useRef, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -17,7 +16,9 @@ import {
   ChartDataset,
   ScriptableContext,
 } from "chart.js";
+import { Chart } from "react-chartjs-2";
 
+// Register required components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -35,7 +36,7 @@ type Volunteer = {
   status: string;
 };
 
-export default function VolunteerLightingUsage() {
+export default function VolunteerPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [emails, setEmails] = useState("");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
@@ -50,14 +51,12 @@ export default function VolunteerLightingUsage() {
   ];
 
   const filteredVolunteers = volunteers
-    .filter((volunteer) =>
-      volunteer.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .sort((a, b) => {
-      return sortOrder === "newest"
+    .filter((v) => v.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    .sort((a, b) =>
+      sortOrder === "newest"
         ? a.name.localeCompare(b.name)
-        : b.name.localeCompare(a.name);
-    });
+        : b.name.localeCompare(a.name)
+    );
 
   const getGradient = (ctx: CanvasRenderingContext2D) => {
     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
@@ -98,19 +97,12 @@ export default function VolunteerLightingUsage() {
       easing: "easeInOutQuart",
     },
     plugins: {
-      legend: {
-        display: false,
-      },
+      legend: { display: false },
       tooltip: {
         enabled: true,
         backgroundColor: "rgba(31, 41, 55, 0.9)",
-        titleFont: {
-          size: 14,
-          weight: "bold",
-        },
-        bodyFont: {
-          size: 12,
-        },
+        titleFont: { size: 14, weight: "bold" },
+        bodyFont: { size: 12 },
         callbacks: {
           label: (context) => `Usage: ${context.raw}`,
         },
@@ -119,25 +111,16 @@ export default function VolunteerLightingUsage() {
     scales: {
       x: {
         grid: { display: false },
-        ticks: {
-          color: "#6B7280",
-          font: { size: 12 },
-        },
+        ticks: { color: "#6B7280", font: { size: 12 } },
       },
       y: {
         grid: { display: false },
         ticks: {
           color: "#6B7280",
           font: { size: 12 },
-          // Removed `max` here
         },
         min: 0,
         max: 100,
-      },
-    },
-    elements: {
-      line: {
-        tension: 0.4,
       },
     },
   };
@@ -164,7 +147,7 @@ export default function VolunteerLightingUsage() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-6xl mx-auto bg-white ">
+      <div className="max-w-6xl mx-auto bg-white">
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-2xl font-bold text-gray-800">
@@ -188,11 +171,6 @@ export default function VolunteerLightingUsage() {
               plugins={[valueLabelPlugin]}
             />
           </div>
-          <div className="flex justify-between mt-4 text-sm text-gray-600">
-            <span>Date</span>
-            <span>Last 7 days</span>
-            <span>Difficult date</span>
-          </div>
         </div>
 
         <div className="mb-6">
@@ -200,7 +178,7 @@ export default function VolunteerLightingUsage() {
             <input
               type="text"
               placeholder="Emails, comma separated"
-              className="border rounded px-3 py-2 mr-4 flex-grow text-gray-800 focus:ring-2 focus:ring-orange-400 focus:outline-none transition-all"
+              className="border rounded px-3 py-2 mr-4 flex-grow text-gray-800 focus:ring-2 focus:ring-orange-400 focus:outline-none"
               value={emails}
               onChange={(e) => setEmails(e.target.value)}
             />
@@ -269,22 +247,20 @@ export default function VolunteerLightingUsage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredVolunteers.map((volunteer, index) => (
-                <tr key={index} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                    {volunteer.name}
+              {filteredVolunteers.map((v, i) => (
+                <tr key={i}>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                    {v.name}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    {volunteer.email}
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                    {v.email}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-100 text-orange-800">
-                      {volunteer.status}
-                    </span>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600">
+                    {v.status}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    <button className="text-red-500 hover:text-red-700 transition-colors">
-                      REMOVE ↓
+                  <td className="px-6 py-4 whitespace-nowrap text-sm">
+                    <button className="text-red-500 hover:underline">
+                      Remove
                     </button>
                   </td>
                 </tr>
