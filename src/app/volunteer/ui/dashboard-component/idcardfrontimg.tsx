@@ -3,21 +3,21 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./dashboard.module.css"; // You can use Tailwind or CSS modules
-import assests from "../../assest/cardfrontimg.jpg";
+import { assests } from "../../assest/assest";
 
 const IdCardFrontImg: React.FC = () => {
   return (
     <div className={styles.card}>
       <div className={styles.header}>
         <div className={styles.logo}>
-          <Image src={assests} alt="Logo" width={100} height={50} />
+          <Image src={assests.logo} alt="Logo" width={100} height={50} />
         </div>
         <h3>Combine Foundation</h3>
       </div>
 
       <div className={styles.photoWrapper}>
         <Image
-          src={assests}
+          src={assests.profile_img}
           alt="M. Umar"
           width={100}
           height={100}

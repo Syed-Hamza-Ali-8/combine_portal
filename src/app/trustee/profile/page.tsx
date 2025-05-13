@@ -19,7 +19,7 @@ const Profile = () => {
       setTrusteeData(JSON.parse(data));
     } else {
       // Redirect to login page if no data found
-      router.push("/");
+      router.push("/trustee");
     }
   }, [router]);
 
@@ -59,7 +59,7 @@ const Profile = () => {
         <div className="mt-6 flex justify-center gap-4">
           <button
             className="w-full py-2 bg-gray-300 text-gray-700 cursor-pointer rounded-md shadow-md hover:bg-gray-400 transition-colors"
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/trustee")}
           >
             Logout
           </button>

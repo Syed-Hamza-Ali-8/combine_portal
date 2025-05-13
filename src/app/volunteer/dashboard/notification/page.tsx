@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Image from "next/image";
-import "./notification.css";
-import { assests } from "../../assest/assest";
-import { RxCrossCircled } from "react-icons/rx";
+import React, { useState } from 'react';
+import Image from 'next/image';
+import './notification.css';
+import { assests } from '../../assest/assest';
+import { RxCrossCircled } from 'react-icons/rx';
 
 // Define the shape of a volunteer object
 interface Volunteer {
@@ -14,45 +14,19 @@ interface Volunteer {
 
 // Initial data typed correctly
 const initialVolunteers: Volunteer[] = [
-  {
-    name: "Muhammad Ali",
-    description:
-      "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.",
-  },
-  {
-    name: "Muhammad Ali",
-    description:
-      "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.",
-  },
-  {
-    name: "Muhammad Ali",
-    description:
-      "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.",
-  },
-  {
-    name: "Muhammad Ali",
-    description:
-      "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.",
-  },
-  {
-    name: "Muhammad Ali",
-    description:
-      "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.",
-  },
-  {
-    name: "Muhammad Ali",
-    description:
-      "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.",
-  },
+  { name: 'Muhammad Ali', description: 'Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.' },
+  { name: 'Muhammad Ali', description: 'Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.' },
+  { name: 'Muhammad Ali', description: 'Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.' },
+  { name: 'Muhammad Ali', description: 'Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.' },
+  { name: 'Muhammad Ali', description: 'Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.' },
+  { name: 'Muhammad Ali', description: 'Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.' },
 ];
 
 const Notification: React.FC = () => {
   const [volunteers, setVolunteers] = useState<Volunteer[]>(initialVolunteers);
 
   const handleDelete = (indexToDelete: number) => {
-    const updatedList = volunteers.filter(
-      (_, index) => index !== indexToDelete
-    );
+    const updatedList = volunteers.filter((_, index) => index !== indexToDelete);
     setVolunteers(updatedList);
   };
 

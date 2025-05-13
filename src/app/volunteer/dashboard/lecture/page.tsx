@@ -1,17 +1,17 @@
-import React from "react";
-import styles from "../../ui/dashboard-component/dashboard.module.css";
-import LectureCart from "../../ui/dashboard-component/lectureCart";
+import React from 'react';
+import styles from '../../ui/dashboard-component/dashboard.module.css';
+import LectureCart from '../../ui/dashboard-component/lectureCart';
 
 const CartItems = [
   {
-    title: "React Basics",
-    videoSrc: "https://youtu.be/pyP_XpLeXBQ",
-    description: "Learn the fundamentals of React.",
+    title: 'React Basics',
+    videoSrc: 'https://youtu.be/pyP_XpLeXBQ',
+    description: 'Learn the fundamentals of React.',
   },
   {
-    title: "JavaScript Essentials",
-    videoSrc: "/videos/js.mp4",
-    description: "Core JavaScript concepts explained.",
+    title: 'JavaScript Essentials',
+    videoSrc: '/videos/js.mp4',
+    description: 'Core JavaScript concepts explained.',
   },
 ];
 

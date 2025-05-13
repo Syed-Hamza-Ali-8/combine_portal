@@ -1,94 +1,40 @@
-"use client";
+"use client"; // Needed if you're using event handlers
 
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import Image from "next/image";
+import { assests } from "./volunteer/assest/assest";
+import "./globals.css"; // This is for your global styles
 
-// AccountTypeCard Component
-interface AccountTypeCardProps {
-  title: string;
-  description: string;
-}
-
-const AccountTypeCard: React.FC<AccountTypeCardProps> = ({
-  title,
-  description,
-}) => {
+const AccountTypeSelection = () => {
   return (
-    <article className="flex flex-col p-6 rounded-lg border border-solid border-gray-200 transition-shadow ease-in-out duration-300 hover:shadow-md cursor-pointer">
-      <h3 className="mb-2 text-xl font-semibold text-gray-900">{title}</h3>
-      <p className="text-sm text-gray-500">{description}</p>
-    </article>
-  );
-};
-
-// AccountTypeSelection Component
-interface AccountType {
-  id: string;
-  title: string;
-  description: string;
-}
-
-const AccountTypeSelection: React.FC = () => {
-  const accountTypes: AccountType[] = [
-    {
-      id: "trustee",
-      title: "Trustee",
-      description: "Manage requests from landlords & find new jobs.",
-    },
-    {
-      id: "admin",
-      title: "Admin",
-      description: "Accept rent online & manage rental",
-    },
-    {
-      id: "volunteer",
-      title: "Volunteer",
-      description: "Find a place & pay rent online",
-    },
-  ];
-
-  return (
-    <main className="p-6 bg-white min-h-screen">
-      <section className="mx-auto max-w-[1200px]">
-        <div className="flex flex-col items-center text-center">
-          <figure className="mb-8">
-            <Image
-              src="https://cdn.builder.io/api/v1/image/assets%2F592f822779b54258b4cdf2eed5c74769%2Fafe7dc892de447499890b130452f7c43"
-              alt="Account search illustration"
-              className="w-[200px] h-auto ml-0"
-              width={200}
-              height={200}
-            />
-          </figure>
-
-          <h1 className="mb-4 text-3xl font-semibold text-gray-900">
-            Account Type
-          </h1>
-
-          <p className="mb-12 text-base text-gray-500 max-w-[600px]">
-            Click your role to continue to your dashboard.
-          </p>
-
-          <div className="flex gap-5 max-md:flex-col w-full">
-            {accountTypes.map((accountType, index) => (
-              <Link
-                href={`/${accountType.id}`}
-                key={accountType.id}
-                className={`w-[33%] max-md:w-full ${
-                  index > 0 ? "max-md:mt-5" : ""
-                }`}
-              >
-                <AccountTypeCard
-                  title={accountType.title}
-                  description={accountType.description}
-                />
-              </Link>
-            ))}
+    <div className="max-w-[800px] mx-auto my-12 p-10 bg-white rounded-lg shadow-lg text-center">
+      <Image
+        src={assests.account}
+        alt="Account Illustration"
+        className="max-w-[150px] mx-auto mb-5"
+      />
+      <h1 className="text-3xl font-bold text-black">Account Type</h1>
+      <p className="text-gray-600 mt-2">
+        Click your role to continue to your dashboard.
+      </p>
+      <div className="flex justify-between mt-8 gap-5 flex-wrap">
+        <Link href="/volunteer/">
+          <div className="flex-1 w-[200px] p-5 border border-gray-300 rounded-lg bg-orange-500 text-white transition duration-300 hover:shadow-xl">
+            <h2>Volunteer</h2>
           </div>
-        </div>
-      </section>
-    </main>
+        </Link>
+        <Link href="/admin/">
+          <div className="flex-1 w-[200px] p-5 border border-gray-300 rounded-lg bg-orange-500 text-white transition duration-300 hover:shadow-xl">
+            <h2>Admin</h2>
+          </div>
+        </Link>
+        <Link href="/trustee/">
+          <div className="flex-1 w-[200px] p-5 border border-gray-300 rounded-lg bg-orange-500 text-white transition duration-300 hover:shadow-xl">
+            <h2>Trustee</h2>
+          </div>
+        </Link>
+      </div>
+    </div>
   );
 };
 

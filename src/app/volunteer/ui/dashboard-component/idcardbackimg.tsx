@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./dashboard.module.css"; // You can also use Tailwind if preferred
-import barcodeImage from "../../assest/cardbackimg.jpg";
+import { assests } from "../../assest/assest";
 
 const IdCardBackImg: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ const IdCardBackImg: React.FC = () => {
       {/* QR Code */}
       <div className={styles.qrWrapper}>
         <Image
-          src={barcodeImage} // Save the QR card image in public/ folder
+          src={assests.barcode} // Save the QR card image in public/ folder
           alt="QR Code"
           width={180}
           height={180}

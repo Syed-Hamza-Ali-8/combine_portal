@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import "./profile.css";
+import './profile.css';
 import {
   FaEnvelope,
   FaPhoneAlt,
@@ -9,7 +9,7 @@ import {
   FaCalendarAlt,
   FaIdCard,
   FaGraduationCap,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
 export default function Profile() {
   return (
@@ -83,8 +83,7 @@ export default function Profile() {
             <div>
               <p className="text-muted">Active Course</p>
               <p>
-                Course Name: <strong>Lorem</strong> | Roll Number:{" "}
-                <strong>99088</strong>
+                Course Name: <strong>Lorem</strong> | Roll Number: <strong>99088</strong>
               </p>
             </div>
           </div>
