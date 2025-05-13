@@ -15,6 +15,7 @@ import {
   ChartOptions,
   ScriptableContext,
   TooltipItem,
+  LineController,
 } from "chart.js";
 import { Sidebar } from "../../components/sidebar";
 
@@ -23,6 +24,7 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  LineController,
   Title,
   Tooltip,
   Legend,
