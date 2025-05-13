@@ -17,10 +17,7 @@ export default function Profile() {
   return (
     <div className="profile-container text-black">
       <div className="profile-wrapper text-black">
-        
-
         {/* Sidebar */}
-
         <div className="profile-box text-black">
           <div className="profile-content">
             <div className="text-black" />
@@ -90,20 +87,8 @@ export default function Profile() {
             </div>
             <p className="value">Intermediate</p>
           </div>
-
-          <div className="info-box active-course">
-            <div>
-              <p className="text-muted">Active Course</p>
-              <p>
-                Course Name: <strong>Lorem</strong> | Roll Number:{" "}
-                <strong>99088</strong>
-              </p>
-            </div>
-            <button className="status-btn">STATUS</button>
-          </div>
         </div>
       </div>
     </div>
   );
 }
-

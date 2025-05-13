@@ -18,7 +18,6 @@ import {
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 
-// Register required components for Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -50,7 +49,6 @@ export default function VolunteerPage() {
     { name: "Miss Maliha", email: "ali@gmail.com", status: "Active" },
   ];
 
-  // Filter and sort volunteers
   const filteredVolunteers = volunteers
     .filter((v) => v.name.toLowerCase().includes(searchTerm.toLowerCase()))
     .sort((a, b) =>
@@ -59,31 +57,47 @@ export default function VolunteerPage() {
         : b.name.localeCompare(a.name)
     );
 
-  // Gradient background for the chart
-  const getGradient = (ctx: CanvasRenderingContext2D) => {
+  const getGradient = (ctx: CanvasRenderingContext2D, color: string) => {
     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, "rgba(251, 146, 60, 0.4)");
-    gradient.addColorStop(1, "rgba(251, 146, 60, 0.1)");
+    gradient.addColorStop(0, `${color}66`);
+    gradient.addColorStop(1, `${color}11`);
     return gradient;
   };
 
-  // Chart data and configuration
   const chartData = {
     labels: ["00-02", "00-03", "00-04", "00-05", "00-06", "00-07"],
     datasets: [
       {
         type: "line" as const,
-        label: "Usage",
-        data: [80, 60, 40, 30, 0, 0],
-        borderColor: "#FB923C",
+        label: "Male",
+        data: [80, 40, 60, 20, 60, 40],
+        borderColor: "#3B82F6",
         backgroundColor: (context: ScriptableContext<"line">) => {
           const chart = context.chart;
           const { ctx, chartArea } = chart;
-          return chartArea ? getGradient(ctx) : "rgba(251, 146, 60, 0.2)";
+          return chartArea ? getGradient(ctx, "#3B82F6") : "#3B82F644";
         },
         borderWidth: 3,
         tension: 0.4,
-        pointBackgroundColor: "#FB923C",
+        pointBackgroundColor: "#3B82F6",
+        pointBorderColor: "#fff",
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        fill: true,
+      } as ChartDataset<"line">,
+      {
+        type: "line" as const,
+        label: "Female",
+        data: [30, 70, 50, 90, 20, 60],
+        borderColor: "#F472B6",
+        backgroundColor: (context: ScriptableContext<"line">) => {
+          const chart = context.chart;
+          const { ctx, chartArea } = chart;
+          return chartArea ? getGradient(ctx, "#F472B6") : "#F472B644";
+        },
+        borderWidth: 3,
+        tension: 0.4,
+        pointBackgroundColor: "#F472B6",
         pointBorderColor: "#fff",
         pointRadius: 5,
         pointHoverRadius: 8,
@@ -92,7 +106,6 @@ export default function VolunteerPage() {
     ],
   };
 
-  // Chart options
   const chartOptions: ChartOptions<"line"> = {
     responsive: true,
     maintainAspectRatio: false,
@@ -101,14 +114,21 @@ export default function VolunteerPage() {
       easing: "easeInOutQuart",
     },
     plugins: {
-      legend: { display: false },
+      legend: {
+        display: true,
+        position: "top",
+        labels: {
+          color: "#1F2937",
+          font: { size: 14, weight: "bold" },
+        },
+      },
       tooltip: {
         enabled: true,
         backgroundColor: "rgba(31, 41, 55, 0.9)",
         titleFont: { size: 14, weight: "bold" },
         bodyFont: { size: 12 },
         callbacks: {
-          label: (context) => `Usage: ${context.raw}`,
+          label: (context) => `${context.dataset.label}: ${context.raw}`,
         },
       },
     },
@@ -129,7 +149,6 @@ export default function VolunteerPage() {
     },
   };
 
-  // Plugin to add labels over points
   const valueLabelPlugin: Plugin<"line"> = {
     id: "valueLabel",
     afterDatasetsDraw(chart) {
@@ -155,7 +174,9 @@ export default function VolunteerPage() {
       <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-lg">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">VOLUNTEERS COUNT</h1>
+            <h1 className="text-2xl font-bold text-gray-800">
+              VOLUNTEERS COUNT
+            </h1>
             <div className="flex items-center mt-2">
               <span className="text-3xl font-bold text-gray-800">23,456</span>
               <span className="ml-2 text-orange-500 font-medium">+12%</span>
@@ -163,7 +184,6 @@ export default function VolunteerPage() {
           </div>
         </div>
 
-        {/* Chart Section */}
         <div className="mb-8">
           <h2 className="text-lg font-semibold mb-2 text-gray-800">USAGES:</h2>
           <div className="h-64 relative">
@@ -177,7 +197,6 @@ export default function VolunteerPage() {
           </div>
         </div>
 
-        {/* Invite Emails Section */}
         <div className="mb-6">
           <div className="flex items-center mb-4">
             <input
@@ -193,7 +212,6 @@ export default function VolunteerPage() {
           </div>
         </div>
 
-        {/* Sort and Search Section */}
         <div className="mb-4 flex justify-between items-center">
           <div className="text-sm font-medium text-gray-800">
             SORT BY:
@@ -205,8 +223,8 @@ export default function VolunteerPage() {
                 setSortOrder(e.target.value as "newest" | "oldest")
               }
             >
-              <option value="newest">NEWEST </option>
-              <option value="oldest">OLDEST </option>
+              <option value="newest">NEWEST</option>
+              <option value="oldest">OLDEST</option>
             </select>
           </div>
           <div className="relative">
@@ -234,7 +252,6 @@ export default function VolunteerPage() {
           </div>
         </div>
 
-        {/* Volunteers Table */}
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">

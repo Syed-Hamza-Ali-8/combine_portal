@@ -46,19 +46,19 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h1 className="login-title">Admin Login</h1>
-        <form onSubmit={handleSubmit} className="login-form">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+        <h1 className="text-3xl font-bold text-center mb-6">Admin Login</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="form-group">
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="email" className="form-label block text-lg">
               Email
             </label>
             <input
               type="email"
               id="email"
               name="email"
-              className="form-input"
+              className="form-input w-full p-3 border border-gray-300 rounded-lg"
               value={formData.email}
               onChange={handleInputChange}
               required
@@ -66,22 +66,25 @@ const LoginPage: React.FC = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="password" className="form-label block text-lg">
               Password
             </label>
             <input
               type="password"
               id="password"
               name="password"
-              className="form-input"
+              className="form-input w-full p-3 border border-gray-300 rounded-lg"
               value={formData.password}
               onChange={handleInputChange}
               required
               aria-label="Password"
             />
           </div>
-          {error && <p className="error-text">{error}</p>}
-          <button type="submit" className="login-button">
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <button
+            type="submit"
+              className="w-full py-3 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 transition duration-300 cursor-pointer" 
+          >
             Log In
           </button>
         </form>

@@ -3,7 +3,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { DashboardLayout } from "./components/layouts/DashboardLayout";
-import { usePathname } from "next/navigation"; // Import this to get the pathname
+import { usePathname } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

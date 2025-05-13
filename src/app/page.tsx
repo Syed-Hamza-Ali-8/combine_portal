@@ -19,17 +19,17 @@ const AccountTypeSelection = () => {
       </p>
       <div className="flex justify-between mt-8 gap-5 flex-wrap">
         <Link href="/volunteer/">
-          <div className="flex-1 w-[200px] p-5 border border-gray-300 rounded-lg bg-orange-500 text-white transition duration-300 hover:shadow-xl">
+          <div className="flex-1 w-full sm:w-[200px] p-5 border border-gray-300 rounded-lg bg-orange-500 text-white transition duration-300 hover:shadow-xl">
             <h2>Volunteer</h2>
           </div>
         </Link>
         <Link href="/admin/">
-          <div className="flex-1 w-[200px] p-5 border border-gray-300 rounded-lg bg-orange-500 text-white transition duration-300 hover:shadow-xl">
+          <div className="flex-1 w-full sm:w-[200px] p-5 border border-gray-300 rounded-lg bg-orange-500 text-white transition duration-300 hover:shadow-xl">
             <h2>Admin</h2>
           </div>
         </Link>
         <Link href="/trustee/">
-          <div className="flex-1 w-[200px] p-5 border border-gray-300 rounded-lg bg-orange-500 text-white transition duration-300 hover:shadow-xl">
+          <div className="flex-1 w-full sm:w-[200px] p-5 border border-gray-300 rounded-lg bg-orange-500 text-white transition duration-300 hover:shadow-xl">
             <h2>Trustee</h2>
           </div>
         </Link>
