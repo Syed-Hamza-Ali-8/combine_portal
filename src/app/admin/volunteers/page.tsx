@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
   Filler,
+  LineController,
   ChartOptions,
   Plugin,
   ChartDataset,
@@ -23,10 +24,11 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  LineController,
   Title,
   Tooltip,
   Legend,
-  Filler
+  Filler,
 );
 
 type Volunteer = {
