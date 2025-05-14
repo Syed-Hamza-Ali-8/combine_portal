@@ -3,7 +3,6 @@
 import "./profile.css";
 import Image from "next/image";
 import {
-  FaEnvelope,
   FaPhoneAlt,
   FaMapMarkerAlt,
   FaUser,
@@ -32,10 +31,6 @@ export default function Profile() {
             <p className="email">muhammadali221@gmail.com</p>
 
             <div className="info">
-              <div className="info-item">
-                <FaEnvelope />
-                <span>muhammadali221@gmail.com</span>
-              </div>
               <div className="info-item">
                 <FaPhoneAlt />
                 <span>03127473404</span>

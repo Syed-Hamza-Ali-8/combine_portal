@@ -10,7 +10,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { Bell } from "lucide-react";
 import { Sidebar } from "../../components/sidebar";
 import Image from "next/image";
 
@@ -47,7 +46,6 @@ export default function Dashboard() {
             TRUSTEE DASHBOARD - COMBINE FOUNDATION
           </h1>
           <div className="flex items-center gap-4">
-            <Bell className="text-black" />
             <Image
               src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
               alt="Profile"
@@ -61,9 +59,9 @@ export default function Dashboard() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-          <div className="bg-orange-500 text-white p-6 rounded-xl">
-            <p className="text-3xl font-bold">1,250</p>
-            <p>Volunteers this month</p>
+          <div className="bg-white text-gray-800 p-6 rounded-xl">
+            <p className="text-lg font-semibold mb-2 text-gray-700">Volunteers this month</p>
+            <p className="text-3xl text-orange-500 font-bold">1,250</p> 
           </div>
 
           <div className="bg-white p-6 rounded-xl shadow">
@@ -87,7 +85,7 @@ export default function Dashboard() {
                 <p>Total boys benefited</p>
               </div>
               <div>
-                <p className="font-bold">1,000</p>
+                <p className="font-bold text-orange-500">1,000</p>
                 <p>Total girls benefited</p>
               </div>
             </div>
@@ -117,7 +115,7 @@ export default function Dashboard() {
               <h2 className="text-lg font-semibold mb-2 text-gray-700">
                 Number of Beneficiaries
               </h2>
-              <p className="text-3xl font-bold text-gray-700">3,254</p>
+              <p className="text-3xl font-bold text-orange-500">3,254</p>
             </div>
             <p className="text-green-600 font-medium">↑ 7.2%</p>
           </div>

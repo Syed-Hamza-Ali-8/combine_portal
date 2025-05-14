@@ -37,7 +37,7 @@ const menuItems = [
     path: "/trustee/beneficiaries",
     icon: <ClipboardList size={20} />,
   },
-  { label: "Logout", path: "/trustee", icon: <LogOut size={20} /> },
+  { label: "Logout", path: "/", icon: <LogOut size={20} /> },
 ];
 
 interface SidebarProps {

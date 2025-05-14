@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { Sidebar } from "../../components/sidebar";
 
 const Profile = () => {
   const router = useRouter();
@@ -12,6 +13,7 @@ const Profile = () => {
   }
 
   const [trusteeData, setTrusteeData] = useState<TrusteeData | null>(null);
+  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
     const data = localStorage.getItem("trusteeData");
@@ -24,6 +26,8 @@ const Profile = () => {
   }, [router]);
 
   return (
+    <>
+    <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
         <div className="flex justify-center mb-6">
@@ -66,6 +70,7 @@ const Profile = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -1,11 +1,12 @@
-// app/dashboard/page.tsx
 "use client";
 
 import Sidebar from "../../components/SideBar-vol";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
 const VolunteerDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="flex min-h-screen bg-white">
@@ -53,14 +54,15 @@ const VolunteerDashboard = () => {
       {/* Main Content Area */}
       <main className="flex-1 p-4 md:p-8 md:ml-64">
         {/* Dashboard Header */}
-        <div className="flex justify-between items-center mb-6 md:mb-8">
-          <h1 className="text-xl md:text-3xl font-bold text-orange-600">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+          <h1 className="text-2xl md:text-3xl font-bold text-orange-600">
             VOLUNTEER DASHBOARD
           </h1>
-          <div className="flex items-center space-x-2 md:space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4 self-end sm:self-auto">
             <button
               title="bttn"
               className="p-1 md:p-2 rounded-full hover:bg-gray-100"
+              onClick={() => router.push('/volunteer/dashboard/profile')}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -81,14 +83,14 @@ const VolunteerDashboard = () => {
         </div>
 
         {/* Content Sections */}
-        <div className="space-y-4 md:space-y-8">
+        <div className="space-y-4 md:space-y-6 w-full">
           {/* Lecture Section */}
-          <section className="bg-gray-50 p-0 rounded-lg overflow-hidden border border-gray-200">
-            <h2 className="text-lg md:text-2xl font-semibold text-white bg-orange-600 px-4 py-2 md:px-6 md:py-3">
+          <section className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+            <h2 className="text-lg md:text-xl font-semibold text-white bg-orange-600 px-4 py-2 md:px-6 md:py-3">
               LECTURE
             </h2>
-            <div className="p-4 md:p-6 space-y-4">
-              <div className="flex items-start space-x-4">
+            <div className="p-4 md:p-6">
+              <div className="flex flex-col xs:flex-row gap-4">
                 <div className="flex-shrink-0 bg-orange-100 p-2 rounded-lg">
                   <svg
                     className="h-6 w-6 text-orange-600"
@@ -105,7 +107,7 @@ const VolunteerDashboard = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-base md:text-xl font-medium text-gray-800">
+                  <h3 className="text-base md:text-lg font-medium text-gray-800">
                     Upcoming Lectures
                   </h3>
                   <p className="text-sm md:text-base text-gray-600 mt-1">
@@ -113,7 +115,7 @@ const VolunteerDashboard = () => {
                     <span className="font-semibold">June 15th</span> about
                     &quot;Community Engagement&quot;
                   </p>
-                  <button className="mt-2 text-sm text-orange-600 hover:text-orange-700 font-medium">
+                  <button className="mt-2 text-sm md:text-base text-orange-600 hover:text-orange-700 font-medium">
                     View Schedule →
                   </button>
                 </div>
@@ -122,12 +124,12 @@ const VolunteerDashboard = () => {
           </section>
 
           {/* Course Section */}
-          <section className="bg-gray-50 p-0 rounded-lg overflow-hidden border border-gray-200">
-            <h2 className="text-lg md:text-2xl font-semibold text-white bg-orange-600 px-4 py-2 md:px-6 md:py-3">
+          <section className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+            <h2 className="text-lg md:text-xl font-semibold text-white bg-orange-600 px-4 py-2 md:px-6 md:py-3">
               COURSE
             </h2>
-            <div className="p-4 md:p-6 space-y-4">
-              <div className="flex items-start space-x-4">
+            <div className="p-4 md:p-6">
+              <div className="flex flex-col xs:flex-row gap-4">
                 <div className="flex-shrink-0 bg-orange-100 p-2 rounded-lg">
                   <svg
                     className="h-6 w-6 text-orange-600"
@@ -144,7 +146,7 @@ const VolunteerDashboard = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-base md:text-xl font-medium text-gray-800">
+                  <h3 className="text-base md:text-lg font-medium text-gray-800">
                     Current Courses
                   </h3>
                   <p className="text-sm md:text-base text-gray-600 mt-1">
@@ -152,14 +154,14 @@ const VolunteerDashboard = () => {
                     <span className="font-semibold">3 courses</span>. Complete
                     modules to earn badges.
                   </p>
-                  <div className="mt-3 flex space-x-2">
-                    <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded-full">
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs md:text-sm rounded-full">
                       Volunteering 101
                     </span>
-                    <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded-full">
+                    <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs md:text-sm rounded-full">
                       Child Safety
                     </span>
-                    <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded-full">
+                    <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs md:text-sm rounded-full">
                       First Aid
                     </span>
                   </div>
@@ -169,12 +171,12 @@ const VolunteerDashboard = () => {
           </section>
 
           {/* Task Section */}
-          <section className="bg-gray-50 p-0 rounded-lg overflow-hidden border border-gray-200">
-            <h2 className="text-lg md:text-2xl font-semibold text-white bg-orange-600 px-4 py-2 md:px-6 md:py-3">
+          <section className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+            <h2 className="text-lg md:text-xl font-semibold text-white bg-orange-600 px-4 py-2 md:px-6 md:py-3">
               TASK
             </h2>
-            <div className="p-4 md:p-6 space-y-4">
-              <div className="flex items-start space-x-4">
+            <div className="p-4 md:p-6">
+              <div className="flex flex-col xs:flex-row gap-4">
                 <div className="flex-shrink-0 bg-orange-100 p-2 rounded-lg">
                   <svg
                     className="h-6 w-6 text-orange-600"
@@ -191,10 +193,10 @@ const VolunteerDashboard = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-base md:text-xl font-medium text-gray-800">
+                  <h3 className="text-base md:text-lg font-medium text-gray-800">
                     Pending Tasks
                   </h3>
-                  <ul className="mt-2 space-y-2">
+                  <ul className="mt-2 space-y-2 text-gray-800">
                     <li className="flex items-center">
                       <input
                         title="inp"
@@ -226,7 +228,7 @@ const VolunteerDashboard = () => {
                       </span>
                     </li>
                   </ul>
-                  <button className="mt-3 text-sm text-orange-600 hover:text-orange-700 font-medium">
+                  <button className="mt-3 text-sm md:text-base text-orange-600 hover:text-orange-700 font-medium">
                     View All Tasks →
                   </button>
                 </div>

@@ -13,9 +13,9 @@ import {
   Legend,
   Filler,
   ChartOptions,
-  ScriptableContext,
-  TooltipItem,
-  LineController,
+  ChartTypeRegistry,
+  Plugin,
+  ScriptableContext
 } from "chart.js";
 import { Sidebar } from "../../components/sidebar";
 
@@ -24,21 +24,25 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
-  LineController,
   Title,
   Tooltip,
   Legend,
   Filler
 );
 
+interface Volunteer {
+  name: string;
+  email: string;
+  status: string;
+}
+
 export default function VolunteerLightingUsage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [emails, setEmails] = useState("");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [collapsed, setCollapsed] = useState(false);
   const chartRef = useRef<ChartJS<"line">>(null);
 
-  const volunteers = [
+  const volunteers: Volunteer[] = [
     { name: "UMER", email: "umer@gmail.com", status: "Active" },
     { name: "Muhammad Jibran", email: "mjr@gmail.com", status: "Active" },
     { name: "HAMZA", email: "hamza@gmail.com", status: "Active" },
@@ -64,6 +68,7 @@ export default function VolunteerLightingUsage() {
     return gradient;
   };
 
+  // Chart data configuration
   const chartData = {
     labels: ["00-02", "00-03", "00-04", "00-05", "00-06", "00-07"],
     datasets: [
@@ -89,6 +94,7 @@ export default function VolunteerLightingUsage() {
     ],
   };
 
+  // Chart options configuration
   const chartOptions: ChartOptions<"line"> = {
     responsive: true,
     maintainAspectRatio: false,
@@ -111,7 +117,7 @@ export default function VolunteerLightingUsage() {
           size: 12,
         },
         callbacks: {
-          label: (context: TooltipItem<"line">) => `Usage: ${context.raw}`,
+          label: (context) => `Usage: ${context.raw}`,
         },
       },
     },
@@ -140,37 +146,30 @@ export default function VolunteerLightingUsage() {
     },
   };
 
-  const valueLabelPlugin = {
+  const valueLabelPlugin: Plugin<keyof ChartTypeRegistry> = {
     id: "valueLabel",
-    afterDatasetsDraw(chart: ChartJS) {
+    afterDatasetsDraw(chart) {
       const { ctx } = chart;
       ctx.font = "bold 12px sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "bottom";
       ctx.fillStyle = "#1F2937";
 
-      chart.data.datasets.forEach((dataset, datasetIndex) => {
-        // Type-check or fallback to global chart type
-        if (dataset.type === "line") {
-          chart
-            .getDatasetMeta(datasetIndex)
-            .data.forEach((point, index: number) => {
-              const value = dataset.data[index];
-              if (typeof value === "number" && value > 0) {
-                ctx.fillText(value.toString(), point.x, point.y - 10);
-              }
-            });
-        }
+      chart.data.datasets.forEach((dataset) => {
+        chart.getDatasetMeta(0).data.forEach((point, index) => {
+          const value = dataset.data[index];
+          if (typeof value === 'number' && value > 0) {
+            ctx.fillText(value.toString(), point.x, point.y - 10);
+          }
+        });
       });
     },
   };
 
   useEffect(() => {
-    const chartInstance = chartRef.current;
-
     return () => {
-      if (chartInstance) {
-        chartInstance.destroy();
+      if (chartRef.current) {
+        chartRef.current.destroy();
       }
     };
   }, []);
@@ -193,9 +192,7 @@ export default function VolunteerLightingUsage() {
           </div>
 
           <div className="mb-8">
-            <h2 className="text-lg font-semibold mb-2 text-gray-800">
-              USAGES:
-            </h2>
+            <h2 className="text-lg font-semibold mb-2 text-gray-800">USAGES:</h2>
             <div className="h-64 relative">
               <Chart
                 ref={chartRef}
@@ -213,25 +210,11 @@ export default function VolunteerLightingUsage() {
           </div>
 
           <div className="mb-6">
-            <div className="flex flex-wrap sm:flex-nowrap justify-between sm:items-center mb-4">
-              <div className="flex items-center mb-4 sm:mb-0 w-full sm:w-auto">
-                <input
-                  type="text"
-                  placeholder="Emails, comma separated"
-                  className="border rounded px-3 py-2 mr-4 flex-grow text-gray-800 focus:ring-2 focus:ring-orange-400 focus:outline-none transition-all"
-                  value={emails}
-                  onChange={(e) => setEmails(e.target.value)}
-                />
-                <button className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors ring-2 ring-orange-400">
-                  Invite
-                </button>
-              </div>
-
+            <div className="flex flex-wrap sm:flex-nowrap justify-end sm:items-center mb-4">
               <div className="flex flex-wrap items-center space-x-4 w-full sm:w-auto">
                 <div className="text-sm font-medium text-gray-800">
                   SORT BY:
                   <select
-                    title="Sort By"
                     className="ml-2 border rounded px-2 py-1 text-gray-800 bg-white focus:ring-2 focus:ring-orange-400 focus:outline-none"
                     value={sortOrder}
                     onChange={(e) =>
@@ -283,17 +266,11 @@ export default function VolunteerLightingUsage() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                     STATUS
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
-                    ACTIONS
-                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredVolunteers.map((volunteer, index) => (
-                  <tr
-                    key={index}
-                    className="hover:bg-gray-50 transition-colors"
-                  >
+                  <tr key={index} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                       {volunteer.name}
                     </td>
@@ -304,11 +281,6 @@ export default function VolunteerLightingUsage() {
                       <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-100 text-orange-800">
                         {volunteer.status}
                       </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                      <button className="text-red-500 hover:text-red-700 transition-colors">
-                        REMOVE ↓
-                      </button>
                     </td>
                   </tr>
                 ))}

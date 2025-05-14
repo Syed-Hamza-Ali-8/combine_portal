@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import Sidebar from "../../components/SideBar-vol";
 import QRCode from "react-qr-code";
+import Image from "next/image";
+import logo from "../../volunteer/assest/logo.png";
 
 interface VolunteerData {
   fullName: string;
@@ -14,9 +16,7 @@ interface VolunteerData {
 
 const VolunteerCard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [volunteerData, setVolunteerData] = useState<VolunteerData | null>(
-    null
-  );
+  const [volunteerData, setVolunteerData] = useState<VolunteerData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -24,23 +24,26 @@ const VolunteerCard = () => {
     if (storedData) {
       setVolunteerData(JSON.parse(storedData));
     } else {
-      // Set dummy data if no data exists
-      const currentDate = new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-
       setVolunteerData({
-        fullName: "M. Ali", // Default name
-        cnic: "12345-6789012-3", // Default CNIC
-        email: "m.ali@example.com",
-        volunteerId: "679785", // Default ID
-        joinDate: currentDate, // Will use current date
+        fullName: "M. Umar",
+        cnic: "12345-6789012-3",
+        email: "m.umar@example.com",
+        volunteerId: "37521",
+        joinDate: "May 01, 2025",
       });
     }
     setIsLoading(false);
   }, []);
+
+  // Get initials from full name
+  const getInitials = (name: string | undefined) => {
+    if (!name) return "CF";
+    return name
+      .split(" ")
+      .map(part => part[0])
+      .join("")
+      .toUpperCase();
+  };
 
   if (isLoading) {
     return (
@@ -52,7 +55,6 @@ const VolunteerCard = () => {
     );
   }
 
-  // Generate QR code data
   const qrData = JSON.stringify({
     name: volunteerData?.fullName,
     id: volunteerData?.volunteerId,
@@ -67,32 +69,12 @@ const VolunteerCard = () => {
         onClick={() => setSidebarOpen(!sidebarOpen)}
       >
         {sidebarOpen ? (
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         )}
       </button>
@@ -112,116 +94,105 @@ const VolunteerCard = () => {
         {/* Cards Container */}
         <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch">
           {/* Front Side */}
-          <div className="w-full md:w-96 bg-white border-2 border-orange-500 rounded-lg shadow-lg overflow-hidden">
-            {/* Card Header */}
-            <div className="bg-white p-4 text-center">
-              <h2 className="text-xl font-bold text-black">
-                Volunteer ID Card
-              </h2>
+          <div className="w-full md:w-[380px] bg-white border border-gray-300 rounded-lg overflow-hidden shadow-lg">
+            {/* Logo Header Section */}
+            <div className="bg-[#e67e22] py-4 px-6 flex flex-col items-center justify-center">
+              <div className="mb-3 w-28 h-28 relative bg-white rounded-full p-2 shadow-md">
+                <Image
+                  src={logo}
+                  alt="Combine Foundation Logo"
+                  width={112}
+                  height={112}
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <h2 className="text-2xl font-bold text-white tracking-wider">COMBINE FOUNDATION</h2>
             </div>
 
-            {/* Card Content */}
-            <div className="p-6 space-y-4">
-              {/* Volunteer Info Section */}
-              <div className="space-y-2">
-                <h3 className="text-lg font-bold">
-                  • {volunteerData?.fullName}
-                </h3>
-                <p className="text-sm">• COMBINE FOUNDATION</p>
-                <p className="text-sm">• CNIC: {volunteerData?.cnic}</p>
-              </div>
-
-              {/* Divider */}
-              <div className="border-t border-gray-300 my-4"></div>
-
-              {/* Coordinator Info Section */}
-              <div className="pt-2">
-                <h4 className="font-medium text-gray-700 mb-3">
-                  Co-ordinator and innovation lead
-                </h4>
-                <div className="space-y-1">
-                  <p className="text-sm">
-                    • <span className="font-bold">F.O.</span> |{" "}
-                    <span className="font-bold">ID:</span>{" "}
-                    {volunteerData?.volunteerId}
-                  </p>
-                  <p className="text-sm">
-                    • <span className="font-bold">Join Date:</span>{" "}
-                    {volunteerData?.joinDate}
-                  </p>
-                  <p className="text-sm">
-                    • <span className="font-bold">Phone:</span> +92 316 398783
-                  </p>
+            {/* Card Body */}
+            <div className="p-6">
+              {/* Volunteer Avatar Placeholder */}
+              <div className="flex justify-center mb-4">
+                <div className="w-24 h-24 rounded-full bg-orange-100 border-4 border-orange-200 flex items-center justify-center">
+                  <span className="text-3xl font-bold text-orange-600">
+                    {getInitials(volunteerData?.fullName)}
+                  </span>
                 </div>
               </div>
 
-              {/* Foundation Name */}
-              <div className="text-center mt-6">
-                <h3 className="text-xl font-bold">COMBINE FOUNDATION</h3>
+              <h3 className="text-3xl font-bold text-gray-800 mb-2 text-center">{volunteerData?.fullName}</h3>
+              <p className="text-xl text-gray-700 mb-6 text-center">Co-ordinator and Innovation Lead</p>
+              
+              <div className="border-t-2 border-gray-200 my-4"></div>
+              
+              <div className="space-y-3">
+                <p className="text-base text-gray-700">
+                  <span className="font-semibold">ID:</span> {volunteerData?.volunteerId}
+                </p>
+                <p className="text-base text-gray-700">
+                  <span className="font-semibold">Join Date:</span> {volunteerData?.joinDate}
+                </p>
+                <p className="text-base text-gray-700">
+                  <span className="font-semibold">Phone:</span> +92 316 378243
+                </p>
+              </div>
+              
+              <div className="mt-12 text-center">
+                <h3 className="text-xl font-bold text-[#e67e22] tracking-wider">COMBINE FOUNDATION</h3>
               </div>
             </div>
           </div>
 
           {/* Back Side */}
-          <div className="w-full md:w-96 bg-white border-2 border-orange-500 rounded-lg shadow-lg overflow-hidden">
-            {/* Card Header */}
-            <div className="bg-white p-4 text-center">
-              <h2 className="text-xl font-bold text-black">
-                Volunteer Information
-              </h2>
+          <div className="w-full md:w-[380px] bg-white border border-gray-300 rounded-lg overflow-hidden shadow-lg">
+            <div className="bg-white p-5 text-center border-b border-gray-300">
+              <h2 className="text-2xl font-bold text-gray-800">Volunteer Information</h2>
             </div>
 
-            {/* Card Content */}
-            <div className="p-6 space-y-4">
-              {/* QR Code Section */}
+            <div className="p-6 space-y-5">
               <div className="flex justify-center">
-                <div className="p-2 border border-gray-200 rounded">
-                  <QRCode value={qrData} size={150} level="H" />
+                <div className="p-3 border-2 border-gray-300 rounded-lg bg-white">
+                  <QRCode value={qrData} size={160} level="H" />
                 </div>
               </div>
 
-              {/* Volunteer Details */}
-              <div className="space-y-1 text-center mt-4">
-                <h3 className="text-lg font-bold">{volunteerData?.fullName}</h3>
-                <p className="text-sm">
-                  <span className="font-bold">ID:</span>{" "}
-                  {volunteerData?.volunteerId}
+              <div className="space-y-2 text-center">
+                <h3 className="text-2xl font-bold text-gray-800">{volunteerData?.fullName}</h3>
+                <p className="text-base text-gray-700">
+                  <span className="font-semibold">ID:</span> {volunteerData?.volunteerId}
                 </p>
-                <p className="text-sm">
-                  <span className="font-bold">Join Date:</span>{" "}
-                  {volunteerData?.joinDate}
+                <p className="text-base text-gray-700">
+                  <span className="font-semibold">Join Date:</span> {volunteerData?.joinDate}
                 </p>
-                <p className="text-sm">
-                  <span className="font-bold">CNIC:</span> {volunteerData?.cnic}
+                <p className="text-base text-gray-700">
+                  <span className="font-semibold">CNIC:</span> {volunteerData?.cnic}
                 </p>
               </div>
 
-              {/* Emergency Contact */}
-              <div className="mt-6 p-4 bg-gray-100 rounded">
-                <h4 className="font-bold text-center mb-2 text-gray-800">
+              <div className="mt-6 p-4 bg-gray-100 rounded-lg border border-gray-200">
+                <h4 className="font-bold text-center mb-2 text-gray-800 text-base">
                   In Case of Emergency
                 </h4>
-                <p className="text-sm text-center text-gray-800">
+                <p className="text-sm text-center text-gray-700">
                   Please contact COMBINE FOUNDATION
                 </p>
                 <p className="text-sm text-center font-bold mt-2 text-gray-800">
-                  +92 316 398783
+                  +92 316 378243
                 </p>
               </div>
 
-              {/* Foundation Name */}
               <div className="text-center mt-4">
-                <h3 className="text-xl font-bold">COMBINE FOUNDATION</h3>
+                <h3 className="text-xl font-bold text-gray-800 tracking-wider">COMBINE FOUNDATION</h3>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Print Button */}
-        <div className="mt-8 text-center">
+        <div className="mt-10 text-center">
           <button
             onClick={() => window.print()}
-            className="px-6 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition"
+            className="px-8 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition text-lg font-semibold shadow-md"
           >
             Print ID Card
           </button>
