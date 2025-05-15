@@ -15,7 +15,7 @@ interface VolunteerData {
 }
 
 const VolunteerCard = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true); // Changed from sidebarOpen
   const [volunteerData, setVolunteerData] = useState<VolunteerData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -66,35 +66,45 @@ const VolunteerCard = () => {
       {/* Mobile Sidebar Toggle */}
       <button
         className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-orange-600 text-white"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        aria-label={isCollapsed ? "Open menu" : "Close menu"}
       >
-        {sidebarOpen ? (
+        {isCollapsed ? (
           <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         ) : (
           <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         )}
       </button>
 
-      {/* Sidebar */}
-      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+      {/* Sidebar with corrected props */}
+      <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
 
       {/* Main Content Area */}
-      <main className="flex-1 p-4 md:p-8 md:ml-64">
+      <main className={`flex-1 p-4 md:p-8 transition-all duration-300 ${isCollapsed ? 'md:ml-0' : 'md:ml-64'}`}>
         {/* Page Header */}
         <div className="flex justify-between items-center mb-8 pl-10 md:pl-0">
           <h1 className="text-2xl md:text-3xl font-bold text-orange-600">
             VOLUNTEER ID CARD
           </h1>
+          <button 
+            className="p-2 rounded-full hover:bg-gray-100"
+            onClick={() => window.print()}
+            aria-label="Print ID card"
+          >
+            <svg className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+          </button>
         </div>
 
         {/* Cards Container */}
         <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch">
           {/* Front Side */}
-          <div className="w-full md:w-[380px] bg-white border border-gray-300 rounded-lg overflow-hidden shadow-lg">
+          <div className="w-full md:w-[380px] bg-white border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
             {/* Logo Header Section */}
             <div className="bg-[#e67e22] py-4 px-6 flex flex-col items-center justify-center">
               <div className="mb-3 w-28 h-28 relative bg-white rounded-full p-2 shadow-md">
@@ -145,7 +155,7 @@ const VolunteerCard = () => {
           </div>
 
           {/* Back Side */}
-          <div className="w-full md:w-[380px] bg-white border border-gray-300 rounded-lg overflow-hidden shadow-lg">
+          <div className="w-full md:w-[380px] bg-white border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
             <div className="bg-white p-5 text-center border-b border-gray-300">
               <h2 className="text-2xl font-bold text-gray-800">Volunteer Information</h2>
             </div>
@@ -153,7 +163,13 @@ const VolunteerCard = () => {
             <div className="p-6 space-y-5">
               <div className="flex justify-center">
                 <div className="p-3 border-2 border-gray-300 rounded-lg bg-white">
-                  <QRCode value={qrData} size={160} level="H" />
+                  <QRCode 
+                    value={qrData} 
+                    size={160} 
+                    level="H" 
+                    bgColor="#ffffff"
+                    fgColor="#000000"
+                  />
                 </div>
               </div>
 
@@ -187,15 +203,6 @@ const VolunteerCard = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="mt-10 text-center">
-          <button
-            onClick={() => window.print()}
-            className="px-8 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition text-lg font-semibold shadow-md"
-          >
-            Print ID Card
-          </button>
         </div>
       </main>
     </div>

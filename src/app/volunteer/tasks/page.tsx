@@ -1,34 +1,22 @@
-// app/task/page.tsx
 "use client";
 
 import { useState } from "react";
 import Sidebar from "../../components/SideBar-vol";
+import { useRouter } from 'next/navigation';
 
 const TaskPage = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true); // Changed from sidebarOpen
+  const router = useRouter();
 
   return (
     <div className="flex min-h-screen bg-white">
       {/* Mobile Sidebar Toggle */}
       <button
         className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-orange-600 text-white"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        aria-label={isCollapsed ? "Open menu" : "Close menu"}
       >
-        {sidebarOpen ? (
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        ) : (
+        {isCollapsed ? (
           <svg
             className="h-6 w-6"
             fill="none"
@@ -42,15 +30,29 @@ const TaskPage = () => {
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
+        ) : (
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         )}
       </button>
 
-      {/* Sidebar */}
-      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+      {/* Sidebar with corrected props */}
+      <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
 
       {/* Main Content Area */}
-      <main className="flex-1 p-4 md:p-8 md:ml-64">
-        {/* Page Header with left padding for mobile */}
+      <main className={`flex-1 p-4 md:p-8 transition-all duration-300 ${isCollapsed ? 'md:ml-0' : 'md:ml-64'}`}>
+        {/* Page Header */}
         <div className="flex justify-between items-center mb-8 pl-10 md:pl-0">
           <h1 className="text-2xl md:text-3xl font-bold text-orange-600">
             TASKS
@@ -59,81 +61,42 @@ const TaskPage = () => {
 
         {/* Task Cards */}
         <div className="space-y-6 max-w-3xl mx-auto">
-          {/* First Task */}
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <div className="space-y-4">
-              <h2 className="text-xl font-bold text-gray-800">FIRST TASK</h2>
-              <div>
-                <h3 className="text-lg font-medium text-gray-700 mb-2">
-                  Lorem
-                </h3>
-                <p className="text-gray-600">
-                  Lorem Ipsum is Simply Dummy Text Of The Printing And
-                  Typesetting Industry.
-                </p>
+          {[1, 2, 3, 4].map((taskNum) => (
+            <div 
+              key={taskNum}
+              className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-gray-800">
+                  {taskNum === 1 ? 'FIRST' : 
+                   taskNum === 2 ? 'SECOND' : 
+                   taskNum === 3 ? 'THIRD' : 'FOURTH'} TASK
+                </h2>
+                <div>
+                  <h3 className="text-lg font-medium text-gray-700 mb-2">
+                    Task Title {taskNum}
+                  </h3>
+                  <p className="text-gray-600">
+                    Complete the assigned volunteer activities and submit your report.
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button 
+                    className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition flex-1"
+                    onClick={() => router.push(`/volunteer/tasks/${taskNum}/submit`)}
+                  >
+                    Submit Task
+                  </button>
+                  <button 
+                    className="px-4 py-2 border border-orange-600 text-orange-600 rounded-lg hover:bg-orange-50 transition flex-1"
+                    onClick={() => router.push(`/volunteer/tasks/${taskNum}`)}
+                  >
+                    View Details
+                  </button>
+                </div>
               </div>
-              <button className="w-full md:w-auto px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition">
-                Upload File
-              </button>
             </div>
-          </div>
-
-          {/* Third Task */}
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <div className="space-y-4">
-              <h2 className="text-xl font-bold text-gray-800">THIRD TASK</h2>
-              <div>
-                <h3 className="text-lg font-medium text-gray-700 mb-2">
-                  Lorem
-                </h3>
-                <p className="text-gray-600">
-                  Lorem Ipsum is Simply Dummy Text Of The Printing And
-                  Typesetting Industry.
-                </p>
-              </div>
-              <button className="w-full md:w-auto px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition">
-                Upload File
-              </button>
-            </div>
-          </div>
-
-          {/* Second Task */}
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <div className="space-y-4">
-              <h2 className="text-xl font-bold text-gray-800">SECOND TASK</h2>
-              <div>
-                <h3 className="text-lg font-medium text-gray-700 mb-2">
-                  Lorem
-                </h3>
-                <p className="text-gray-600">
-                  Lorem Ipsum is Simply Dummy Text Of The Printing And
-                  Typesetting Industry.
-                </p>
-              </div>
-              <button className="w-full md:w-auto px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition">
-                Upload File
-              </button>
-            </div>
-          </div>
-
-          {/* Fourth Task */}
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-            <div className="space-y-4">
-              <h2 className="text-xl font-bold text-gray-800">FOURTH TASK</h2>
-              <div>
-                <h3 className="text-lg font-medium text-gray-700 mb-2">
-                  Lorem
-                </h3>
-                <p className="text-gray-600">
-                  Lorem Ipsum is Simply Dummy Text Of The Printing And
-                  Typesetting Industry.
-                </p>
-              </div>
-              <button className="w-full md:w-auto px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition">
-                Upload File
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </main>
     </div>
