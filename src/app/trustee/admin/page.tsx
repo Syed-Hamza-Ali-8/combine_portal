@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Chart } from "react-chartjs-2";
 import {
   Chart as ChartJS,
+  LineController,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -21,6 +22,7 @@ import { Sidebar } from "../../components/sidebar";
 
 ChartJS.register(
   CategoryScale,
+  LineController,
   LinearScale,
   PointElement,
   LineElement,
