@@ -44,7 +44,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       icon: <GraduationCap size={22} />,
     },
     { label: "Tasks", path: "/admin/tasks", icon: <ClipboardList size={22} /> },
-    { label: "LogOut", path: "/admin/", icon: <LogOut size={22} /> },
+    { label: "LogOut", path: "/", icon: <LogOut size={22} /> },
   ];
 
   // Optional: Prevent body scroll when sidebar open
